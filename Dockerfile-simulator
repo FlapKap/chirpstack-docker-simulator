@@ -1,0 +1,4 @@
+FROM ubuntu:22.04
+COPY ./chirpstack-simulator/build/chirpstack-simulator /chirpstack-simulator
+RUN chmod +x /chirpstack-simulator
+ENTRYPOINT /chirpstack-simulator -c /etc/chirpstack-simulator/config.yaml
