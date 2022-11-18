@@ -1,0 +1,3 @@
+[submodule "chirpstack-simulator"]
+	path = chirpstack-simulator
+	url = https://github.com/brocaar/chirpstack-simulator.git
