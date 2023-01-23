@@ -1,4 +1,6 @@
 FROM ubuntu:22.04
+ENV DEBIAN_FRONTEND=noninteractive
+RUN apt-get update -qq && apt-get upgrade -qy && apt-get clean
 COPY ./chirpstack-simulator/build/chirpstack-simulator /chirpstack-simulator
 RUN chmod +x /chirpstack-simulator
-ENTRYPOINT /chirpstack-simulator -c /etc/chirpstack-simulator/config.yaml
+ENTRYPOINT /chirpstack-simulator -c /etc/chirpstack-simulator/config.toml

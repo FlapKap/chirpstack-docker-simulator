@@ -1,0 +1,142 @@
+[general]
+# Log level
+#
+# debug=5, info=4, warning=3, error=2, fatal=1, panic=0
+log_level=4
+
+
+# ChirpStack configuration.
+[chirpstack]
+
+  # API configuration.
+  #
+  # This configuration is used to automatically create the:
+  #   * Device profile
+  #   * Gateways
+  #   * Application
+  #   * Devices
+  [chirpstack.api]
+
+  # JWT token.
+  #
+  # API key to connect to the ChirpStack API. This API key can created within
+  # the ChirpStack web-interface.
+  api_key="PUT_YOUR_API_KEY_HERE"
+
+  # Server.
+  #
+  # This must point to the API interface of ChirpStack.
+  # If the server is running on the same machine, keep this to the
+  # default value.
+  server="127.0.0.1:8080"
+
+  # Insecure.
+  #
+  # Set this to true when the endpoint is not using TLS.
+  insecure=true
+
+
+  # MQTT integration configuration.
+  #
+  # This integration is used for counting the number of uplinks that are
+  # published by the ChirpStack MQTT integration.
+  [chirpstack.integration.mqtt]
+
+  # MQTT server.
+  server="tcp://127.0.0.1:1883"
+
+  # Username.
+  username=""
+
+  # Password.
+  password=""
+
+
+  # MQTT gateway backend.
+  [chirpstack.gateway.backend.mqtt]
+
+  # MQTT server.
+  server="tcp://127.0.0.1:1883"
+
+  # Username.
+  username=""
+
+  # Password.
+  password=""
+
+
+# Simulator configuration.
+[[simulator]]
+
+# Tenant ID.
+#
+# It is recommended to create a new tenant for simulations.
+tenant_id="PUT_YOUR_TENANT_ID_HERE"
+
+# Duration.
+#
+# This defines the duration of the simulation. If set to '0s', the simulation
+# will run until terminated.
+duration="5m"
+
+# Activation time.
+#
+# This is the time that the simulator takes to activate the devices. This
+# value must be less than the simulator duration.
+activation_time="1m"
+
+  # Device configuration.
+  [simulator.device]
+
+  # Number of devices to simulate.
+  count=1000
+
+  # Uplink interval.
+  uplink_interval="5m"
+
+  # FPort.
+  f_port=10
+
+  # Payload (HEX encoded).
+  payload="010203"
+
+  # Frequency (Hz).
+  frequency=868100000
+
+  # Bandwidth (Hz).
+  bandwidth=125000
+
+  # Spreading-factor.
+  spreading_factor=7
+
+  # Gateway configuration.
+  [simulator.gateway]
+
+  # Min number of receiving gateways.
+  min_count=3
+
+  # Max number of receiving gateways.
+  max_count=5
+
+  # Event topic template.
+  event_topic_template="eu868/gateway/{{ .GatewayID }}/event/{{ .Event }}"
+
+  # Command topic template.
+  command_topic_template="eu868/gateway/{{ .GatewayID }}/command/{{ .Command }}"
+
+
+# Prometheus metrics configuration.
+#
+# Using Prometheus (and Grafana), it is possible to visualize various
+# simulation metrics like:
+#   * Join-Requests sent
+#   * Join-Accepts received
+#   * Uplinks sent (by the devices)
+#   * Uplinks sent (by the gateways)
+#   * Uplinks sent (by the ChirpStack MQTT integration)
+[prometheus]
+
+# IP:port to bind the Prometheus endpoint to.
+#
+# Metrics can be retrieved from /metrics.
+bind="0.0.0.0:9000"
